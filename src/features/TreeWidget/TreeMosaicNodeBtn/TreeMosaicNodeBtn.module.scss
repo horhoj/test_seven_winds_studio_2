@@ -1,0 +1,18 @@
+.TreeMosaicNodeBtn {}
+
+.element {
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  height: 32px; 
+  width: 28px; 
+  border-radius: 6px; 
+  outline: none; 
+  border: none;
+  background-color: #414144;
+  cursor: pointer;
+}
+
+.element:hover {
+  background-color: #414144; 
+}

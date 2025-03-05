@@ -1,0 +1,29 @@
+.TreeMosaicRootElement {
+  display: flex;
+  position: relative;
+  height: 100%;
+  width: 40px;
+  justify-content: center;
+}
+
+.TreeMosaicRootElementEl1 {
+  height: 100%;
+  width: 2px;
+  background-color: var(--table-tree-border-color);
+  display: flex;
+  position: absolute;
+  top: 50%;
+}
+
+.TreeMosaicRootElementEl2 {
+  position: relative;
+  // color: white;
+  // background-color: var(--table-tree-border-color);
+  height: fit-content;
+  white-space: nowrap;
+  font-size: 12px;
+  border-radius: 6px;
+  margin: auto 0;
+  display: flex;
+  gap: 0;
+}

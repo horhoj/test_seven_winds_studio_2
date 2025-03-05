@@ -1,0 +1,40 @@
+.TreeTable {
+  width: 100%;
+  padding: 0 12px 50px 12px;
+  background-color: #202124;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  &>thead>tr>th {
+    text-align: left;
+    font-weight: 400;
+  }
+
+  &>thead>tr>th:nth-child(2) {
+    width: 500px;
+  }
+}
+
+.tHeadTr {
+  height: 56px;
+  box-shadow: 0 1px 0px 0px var(--table-tree-tr-bottom-border);
+  color: #A1A1AA;
+}
+
+.tHeadTdFirst {
+  width: 1px;
+}
+
+.tBodyTr {
+  box-shadow: 0 1px 0px 0px var(--table-tree-tr-bottom-border);
+}
+
+.tBodyTdFirst {
+  position: relative;
+  height: 60px;
+  padding: 0 20px 0 0;
+  display: flex;
+}

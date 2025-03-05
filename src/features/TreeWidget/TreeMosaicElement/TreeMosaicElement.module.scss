@@ -1,0 +1,121 @@
+.TreeMosaicElement {}
+
+.mosaicElementWrapper {
+
+  display: flex;
+  position: relative;
+  height: 100%;
+}
+
+.mosaicElement {
+
+  height: 100%;
+  width: 40px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+}
+
+.mosaicElementLine {
+  width: 2px;
+  height: 100%;
+  background-color: var(--table-tree-border-color);
+  display: flex;
+}
+
+
+.mosaicElementStartEl1 {
+  width: 2px;
+  height: 100%;
+  background-color: var(--table-tree-border-color);
+  display: flex;
+  position: absolute;
+}
+
+.mosaicElementStartEl2 {
+  height: 2px;
+  width: 50%;
+  background-color: var(--table-tree-border-color);
+  display: flex;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+}
+
+.mosaicElementEndEl1 {
+  width: 2px;
+  height: 50%;
+  background-color: var(--table-tree-border-color);
+  display: flex;
+  position: absolute;
+}
+
+.mosaicElementEndEl2 {
+  height: 2px;
+  width: 50%;
+  background-color: var(--table-tree-border-color);
+  display: flex;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+}
+
+.iconWrapper {
+  display: flex;
+  position: relative;
+  height: 100%;
+  width: 40px;
+  // justify-content: center;
+  margin-right: 16px;
+  // border:  1px solid red;
+  padding-left: 6px;
+}
+
+.iconWrapperExictsChild {
+  height: 2px;
+  width: 50%;
+  background-color: var(--table-tree-border-color);
+  display: flex;
+  position: absolute;
+  bottom: 50%;
+  left: 0;
+}
+
+.iconWrapperExictsChildEl {
+  width: 2px;
+  height: 50%;
+  background-color: var(--table-tree-border-color);
+  bottom: 0;
+  left: calc(50% - 1px);
+  display: flex;
+  position: absolute;
+}
+
+.iconWrapperChildren {
+  position: relative;
+  color: white;
+  background-color: #414144;
+  height: fit-content;
+  white-space: nowrap;
+  padding: 0;
+  font-size: 12px;
+  border-radius: 6px;
+  margin: auto 0;
+  display: flex;
+  gap: 0;
+  // margin-left: 20px;
+
+  &>button:nth-child(2) {
+    display: none;
+  }
+
+  &:hover {
+    background-color: #414144;
+
+    &>button {
+      display: flex;
+    }
+  }
+}
