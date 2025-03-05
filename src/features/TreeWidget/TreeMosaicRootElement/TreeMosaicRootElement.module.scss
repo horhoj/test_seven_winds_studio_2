@@ -8,7 +8,7 @@
 
 .TreeMosaicRootElementEl1 {
   height: 100%;
-  width: 2px;
+  width: var(--table-tree-border-size);
   background-color: var(--table-tree-border-color);
   display: flex;
   position: absolute;

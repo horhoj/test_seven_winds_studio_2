@@ -25,6 +25,7 @@ export function TreeTable({ tree, newParentNodeId }: TreeTableProps) {
                 <TreeMosaicNodeBtn variant={'item'} />
               </TreeMosaicRootElement>
             </th>
+            <th>Наименование</th>
             <th>Основная з/п</th>
             <th>Оборудование</th>
             <th>Накладные расходы</th>

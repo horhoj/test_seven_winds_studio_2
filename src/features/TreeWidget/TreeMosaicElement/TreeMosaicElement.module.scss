@@ -19,7 +19,7 @@
 }
 
 .mosaicElementLine {
-  width: 2px;
+  width: var(--table-tree-border-size);
   height: 100%;
   background-color: var(--table-tree-border-color);
   display: flex;
@@ -27,7 +27,7 @@
 
 
 .mosaicElementStartEl1 {
-  width: 2px;
+  width: var(--table-tree-border-size);
   height: 100%;
   background-color: var(--table-tree-border-color);
   display: flex;
@@ -35,7 +35,7 @@
 }
 
 .mosaicElementStartEl2 {
-  height: 2px;
+  height: var(--table-tree-border-size);
   width: 50%;
   background-color: var(--table-tree-border-color);
   display: flex;
@@ -45,7 +45,7 @@
 }
 
 .mosaicElementEndEl1 {
-  width: 2px;
+  width: var(--table-tree-border-size);
   height: 50%;
   background-color: var(--table-tree-border-color);
   display: flex;
@@ -53,7 +53,7 @@
 }
 
 .mosaicElementEndEl2 {
-  height: 2px;
+  height: var(--table-tree-border-size);
   width: 50%;
   background-color: var(--table-tree-border-color);
   display: flex;
@@ -74,7 +74,7 @@
 }
 
 .iconWrapperExictsChild {
-  height: 2px;
+  height: var(--table-tree-border-size);
   width: 50%;
   background-color: var(--table-tree-border-color);
   display: flex;
@@ -84,11 +84,11 @@
 }
 
 .iconWrapperExictsChildEl {
-  width: 2px;
+  width: var(--table-tree-border-size);
   height: 50%;
   background-color: var(--table-tree-border-color);
   bottom: 0;
-  left: calc(50% - 1px);
+  left: calc(50% - var(--table-tree-border-size) / 2);
   display: flex;
   position: absolute;
 }
