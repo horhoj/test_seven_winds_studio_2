@@ -1,0 +1,59 @@
+.TreeRowForm {}
+
+.field {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+
+.input {
+  color: #fff;
+  background-color: #202124;
+  border: 1px solid #414144;
+  min-height: 36px;
+  padding: 10px;
+  border-radius: 6px;
+  width: 100%;
+  
+
+  &:focus {
+    outline: 2px solid #414144;
+  }
+
+  &::selection {
+    background: cadetblue;
+  }
+
+  &::-moz-selection {
+    background: cadetblue;
+  }
+
+  &[type='number'] {
+    -moz-appearance: textfield;
+    max-width: 165px;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+}
+
+.error {
+  position: absolute;
+  color: red;
+  display: block;
+  font-size: 12px;
+  background-color: #000;
+  font-weight: 700;
+  right: 10px;
+  padding: 3px;
+  border-radius: 4px;
+  top: -8px;
+}
+
+.form {
+  display: none;
+}

@@ -7,12 +7,15 @@ export enum treeMosaicType {
   space = '.',
 }
 
+export type TreeViewRowBody = Omit<RowTreeNode, 'child'>;
+
 export interface TreeViewItem {
   treeMosaic: treeMosaicType[];
   isChild: boolean;
-  data: Omit<RowTreeNode, 'child'>;
+  data: TreeViewRowBody;
+  isNew: boolean;
 }
 
 export interface NewParentNodeId {
-  value: null | string;
+  value: null | number;
 }

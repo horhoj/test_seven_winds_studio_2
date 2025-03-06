@@ -1,6 +1,32 @@
 import { NewParentNodeId, treeMosaicType, TreeViewItem } from './treeTypes';
 import { RowTreeNode } from '~/api/outlayRows.types';
 
+const makeGenId = () => {
+  let id = 0;
+  return () => {
+    id--;
+    return id;
+  };
+};
+
+const makeId = makeGenId();
+
+const makeNewNode = (id: number): RowTreeNode => ({
+  id,
+  rowName: '___',
+  total: 0,
+  salary: 0,
+  mimExploitation: 0,
+  machineOperatorSalary: 0,
+  materials: 0,
+  mainCosts: 0,
+  supportCosts: 0,
+  equipmentCosts: 0,
+  overheads: 0,
+  estimatedProfit: 0,
+  child: [],
+});
+
 export const makeDataView = ({
   tree,
   newParentNodeId,
@@ -15,29 +41,34 @@ export const makeDataView = ({
     listIdx: number;
     listLength: number;
     isParentClose: boolean;
-    isNew: boolean;
   }
 
   const result: TreeViewItem[] = [];
+  const stack: StackItem[] = [];
 
-  const rootLengthFix = newParentNodeId?.value === null ? 1 : 0;
-  const stack: StackItem[] = tree
-    .map((treeNode, i) => ({
+  const newId = makeId();
+
+  let actualTree = tree;
+  if (newParentNodeId?.value === null) {
+    actualTree = tree.slice();
+    actualTree.push(makeNewNode(newId));
+  }
+
+  for (let i = actualTree.length - 1; i >= 0; i--) {
+    stack.push({
+      treeNode: actualTree[i],
       level: 0,
-      treeNode,
       treeMosaic: [],
-      listIdx: i + rootLengthFix,
-      listLength: tree.length + rootLengthFix,
+      listIdx: i,
+      listLength: actualTree.length,
       isParentClose: false,
-      isNew: false,
-    }))
-    .reverse();
+    });
+  }
   while (stack.length > 0) {
     const stackItem = stack.pop();
     if (stackItem) {
       const { child, ...data } = stackItem.treeNode;
       let currentTreeMosaicItem = treeMosaicType.start;
-
       if (stackItem.listIdx === stackItem.listLength - 1) {
         currentTreeMosaicItem = treeMosaicType.end;
       }
@@ -47,26 +78,28 @@ export const makeDataView = ({
         treeMosaic[treeMosaic.length - 1] = stackItem.isParentClose ? treeMosaicType.space : treeMosaicType.line;
       }
       treeMosaic.push(currentTreeMosaicItem);
-
+      let actualChild = child;
+      if (newParentNodeId?.value === stackItem.treeNode.id) {
+        actualChild = child.slice();
+        actualChild.push(makeNewNode(newId));
+      }
       const viewItem: TreeViewItem = {
         data,
-        isChild: child.length > 0,
+        isChild: actualChild.length > 0,
         treeMosaic,
+        isNew: stackItem.treeNode.id === newId,
       };
       result.push(viewItem);
 
-      if (child) {
-        for (let i = child.length - 1; i >= 0; i--) {
-          stack.push({
-            treeNode: child[i],
-            level: stackItem.level + 1,
-            treeMosaic,
-            listIdx: i,
-            listLength: child.length,
-            isParentClose: stackItem.listIdx === stackItem.listLength - 1,
-            isNew: false,
-          });
-        }
+      for (let i = actualChild.length - 1; i >= 0; i--) {
+        stack.push({
+          treeNode: actualChild[i],
+          level: stackItem.level + 1,
+          treeMosaic,
+          listIdx: i,
+          listLength: actualChild.length,
+          isParentClose: stackItem.listIdx === stackItem.listLength - 1,
+        });
       }
     }
   }

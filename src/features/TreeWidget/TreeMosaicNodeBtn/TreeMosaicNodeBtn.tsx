@@ -10,11 +10,13 @@ const variants = {
 
 interface TreeMosaicNodeBtnProps {
   variant: keyof typeof variants;
+  onClick: () => void;
+  disabled?: boolean;
 }
-export function TreeMosaicNodeBtn({ variant }: TreeMosaicNodeBtnProps) {
+export function TreeMosaicNodeBtn({ variant, onClick, disabled = false }: TreeMosaicNodeBtnProps) {
   const VariantIcon = variants[variant];
   return (
-    <button className={styles.element} tabIndex={-1}>
+    <button className={styles.element} tabIndex={-1} onClick={onClick} disabled={disabled}>
       <VariantIcon />
     </button>
   );
