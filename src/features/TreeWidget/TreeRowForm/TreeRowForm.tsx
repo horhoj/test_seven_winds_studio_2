@@ -10,6 +10,7 @@ import { Portal } from '~/ui/Portal';
 interface TreeRowFormProps {
   rowData: TreeViewRowBody;
   onSubmit: (values: TreeViewRowBody) => void;
+  disabled: boolean;
 }
 
 type FormValues = Pick<TreeViewRowBody, 'rowName' | 'salary' | 'equipmentCosts' | 'overheads' | 'estimatedProfit'>;
@@ -52,7 +53,7 @@ const validationSchema: yup.ObjectSchema<FormValues> = yup.object({
     .required(VALIDATION_IS_EMPTY_MSG),
 });
 
-export function TreeRowForm({ rowData, onSubmit }: TreeRowFormProps) {
+export function TreeRowForm({ rowData, onSubmit, disabled }: TreeRowFormProps) {
   const ref = useRef<HTMLInputElement>(null);
 
   const FORM_ID = useMemo(() => `form_${getUUID()}`, []);
@@ -97,14 +98,21 @@ export function TreeRowForm({ rowData, onSubmit }: TreeRowFormProps) {
       <>
         <Portal>
           <form noValidate autoComplete={'off'} id={FORM_ID} onSubmit={formik.handleSubmit} className={styles.form}>
-            <button form={FORM_ID} type={'submit'}>
+            <button form={FORM_ID} type={'submit'} disabled={disabled}>
               submit
             </button>
           </form>
         </Portal>
         <td>
           <span className={styles.field}>
-            <input type="text" {...rowNameFieldData.fieldProps} form={FORM_ID} className={styles.input} ref={ref} />
+            <input
+              type="text"
+              {...rowNameFieldData.fieldProps}
+              form={FORM_ID}
+              className={styles.input}
+              ref={ref}
+              readOnly={disabled}
+            />
 
             {rowNameFieldData.isError && <span className={styles.error}>{rowNameFieldData.errorText}</span>}
           </span>
@@ -112,14 +120,26 @@ export function TreeRowForm({ rowData, onSubmit }: TreeRowFormProps) {
 
         <td>
           <span className={styles.field}>
-            <input type="number" {...salaryFieldData.fieldProps} form={FORM_ID} className={styles.input} />
+            <input
+              type="number"
+              {...salaryFieldData.fieldProps}
+              form={FORM_ID}
+              className={styles.input}
+              readOnly={disabled}
+            />
             {salaryFieldData.isError && <span className={styles.error}>{salaryFieldData.errorText}</span>}
           </span>
         </td>
 
         <td>
           <span className={styles.field}>
-            <input type="number" {...equipmentCostsFieldData.fieldProps} form={FORM_ID} className={styles.input} />
+            <input
+              type="number"
+              {...equipmentCostsFieldData.fieldProps}
+              form={FORM_ID}
+              className={styles.input}
+              readOnly={disabled}
+            />
             {equipmentCostsFieldData.isError && (
               <span className={styles.error}>{equipmentCostsFieldData.errorText}</span>
             )}
@@ -128,14 +148,26 @@ export function TreeRowForm({ rowData, onSubmit }: TreeRowFormProps) {
 
         <td>
           <span className={styles.field}>
-            <input type="number" {...overheadsFieldData.fieldProps} form={FORM_ID} className={styles.input} />
+            <input
+              type="number"
+              {...overheadsFieldData.fieldProps}
+              form={FORM_ID}
+              className={styles.input}
+              readOnly={disabled}
+            />
             {overheadsFieldData.isError && <span className={styles.error}>{overheadsFieldData.errorText}</span>}
           </span>
         </td>
 
         <td>
           <span className={styles.field}>
-            <input type="number" {...estimatedProfitFieldData.fieldProps} form={FORM_ID} className={styles.input} />
+            <input
+              type="number"
+              {...estimatedProfitFieldData.fieldProps}
+              form={FORM_ID}
+              className={styles.input}
+              readOnly={disabled}
+            />
             {estimatedProfitFieldData.isError && (
               <span className={styles.error}>{estimatedProfitFieldData.errorText}</span>
             )}

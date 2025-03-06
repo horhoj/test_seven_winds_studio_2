@@ -20,6 +20,7 @@ interface TreeTableProps {
   onAddSubmit: (values: TreeViewRowBody) => void;
   onPatchSubmit: (values: TreeViewRowBody) => void;
   onDeleteSubmit: (elId: number) => void;
+  disabled: boolean;
 }
 
 export function TreeTable({
@@ -32,6 +33,7 @@ export function TreeTable({
   onEdit,
   onPatchSubmit,
   onDeleteSubmit,
+  disabled,
 }: TreeTableProps) {
   const view = useMemo(() => makeDataView({ tree, newParentNodeId }), [tree, newParentNodeId]);
   return (
@@ -41,8 +43,9 @@ export function TreeTable({
           <tr className={styles.tHeadTr}>
             <th className={styles.tHeadTdFirst}>
               <TreeMosaicRootElement>
-                <TreeMosaicNodeBtn variant={'item'} onClick={() => onAdd({ value: null })} />
+                <TreeMosaicNodeBtn variant={'item'} onClick={() => onAdd({ value: null })} disabled={disabled} />
               </TreeMosaicRootElement>
+              <span className={styles.tHeaderLevelTitle}>Уровень</span>
             </th>
             <th>Наименование</th>
             <th>Основная з/п</th>
@@ -53,34 +56,39 @@ export function TreeTable({
         </thead>
         <tbody>
           {view.map((el, i) => (
-            <tr key={el.data.id} className={styles.tBodyTr} onDoubleClick={() => onEdit(el.data.id)}>
+            <tr key={el.data.id} className={styles.tBodyTr} onDoubleClick={() => !disabled && onEdit(el.data.id)}>
               <td
                 className={classNames(styles.tBodyTdFirst)}
                 // style={{ height: `${(i + 1) * 50}px` }}
               >
-                <div className={styles.test}>
+                <div className={styles.tBodyTdFirstContentWrapper}>
                   <TreeMosaicElement mosaicList={el.treeMosaic} isChild={el.isChild}>
                     <TreeMosaicNodeBtn
                       variant={'item'}
                       onClick={() => onAdd({ value: el.data.id })}
-                      disabled={el.isNew}
+                      disabled={el.isNew || disabled}
                     />
                     {!el.isNew && editRowId !== el.data.id && (
-                      <TreeMosaicNodeBtn variant={'trash'} onClick={() => onDeleteSubmit(el.data.id)} />
+                      <TreeMosaicNodeBtn
+                        variant={'trash'}
+                        onClick={() => onDeleteSubmit(el.data.id)}
+                        disabled={disabled}
+                      />
                     )}
                     {(el.isNew || editRowId === el.data.id) && (
-                      <TreeMosaicNodeBtn variant={'cancel'} onClick={onCancel} />
+                      <TreeMosaicNodeBtn variant={'cancel'} onClick={onCancel} disabled={disabled} />
                     )}
                   </TreeMosaicElement>
                 </div>
               </td>
               {!el.isNew && editRowId !== el.data.id && <TreeRowView rowData={el.data} />}
               {el.isNew && editRowId !== el.data.id && (
-                <TreeRowForm rowData={el.data} onSubmit={(values) => onAddSubmit(values)} />
+                <TreeRowForm rowData={el.data} onSubmit={(values) => onAddSubmit(values)} disabled={disabled} />
               )}
               {!el.isNew && editRowId === el.data.id && (
                 <TreeRowForm
                   rowData={el.data}
+                  disabled={disabled}
                   onSubmit={(values) => {
                     onPatchSubmit(values);
                   }}

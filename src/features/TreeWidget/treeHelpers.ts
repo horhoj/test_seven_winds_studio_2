@@ -13,7 +13,7 @@ const makeId = makeGenId();
 
 const makeNewNode = (id: number): RowTreeNode => ({
   id,
-  rowName: '___',
+  rowName: '',
   total: 0,
   salary: 0,
   mimExploitation: 0,

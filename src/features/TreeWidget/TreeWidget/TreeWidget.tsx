@@ -11,6 +11,22 @@ export function TreeWidget() {
 
   const newParentNodeId = useAppSelector((state) => state.tree.newParentNodeId);
   const editRowId = useAppSelector((state) => state.tree.editRowId);
+  const isLoading = useAppSelector(treeSlice.selectors.isLoading);
+
+  useEffect(() => {
+    const keyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        dispatch(treeSlice.actions.setNewParentNodeId(null));
+        dispatch(treeSlice.actions.setEditRowId(null));
+      }
+    };
+    if (editRowId !== null || newParentNodeId !== null) {
+      window.addEventListener('keydown', keyDown);
+    }
+    return () => {
+      window.removeEventListener('keydown', keyDown);
+    };
+  }, [editRowId, newParentNodeId]);
 
   useEffect(() => {
     dispatch(treeSlice.thunks.fetchRowListThunk());
@@ -47,10 +63,14 @@ export function TreeWidget() {
   };
 
   const handleDeleteSubmit = (elId: number) => {
-    const res = confirm('Удалить?');
-    if (res) {
-      dispatch(treeSlice.thunks.deleteRowThunk({ deleteRowId: elId }));
-    }
+    dispatch(treeSlice.actions.setNewParentNodeId(null));
+    dispatch(treeSlice.actions.setEditRowId(null));
+    setTimeout(() => {
+      const res = confirm('Удалить?');
+      if (res) {
+        dispatch(treeSlice.thunks.deleteRowThunk({ deleteRowId: elId }));
+      }
+    }, 300);
   };
 
   return (
@@ -66,6 +86,7 @@ export function TreeWidget() {
           onAddSubmit={handleAddSubmit}
           onPatchSubmit={handlePatchSubmit}
           onDeleteSubmit={handleDeleteSubmit}
+          disabled={isLoading}
         />
       )}
     </>
