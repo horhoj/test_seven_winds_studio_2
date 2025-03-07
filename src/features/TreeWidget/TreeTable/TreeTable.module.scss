@@ -17,6 +17,10 @@
     padding: 0px 12px;
   }
 
+  &>thead>tr>th:nth-child(1) {
+    min-width: 120px;
+  }
+
   &>thead>tr>th:nth-child(2) {
     width: 100%;
     min-width: 400px;
